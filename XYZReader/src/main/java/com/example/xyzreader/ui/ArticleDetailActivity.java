@@ -30,6 +30,7 @@ public class ArticleDetailActivity extends AppCompatActivity
 
     private Cursor mCursor;
     private long mStartId;
+    private boolean firstStart = true;
 
     private long mSelectedItemId = -1;
 
@@ -52,8 +53,11 @@ public class ArticleDetailActivity extends AppCompatActivity
     @Override
     public void onEnterAnimationComplete() {
         super.onEnterAnimationComplete();
-        getLoaderManager().initLoader(0, null, this);
-        mPager.setAdapter(mPagerAdapter);
+        if(firstStart) {
+            firstStart = false;
+            getLoaderManager().initLoader(0, null, this);
+            mPager.setAdapter(mPagerAdapter);
+        }
     }
 
     @Override

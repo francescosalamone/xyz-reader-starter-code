@@ -76,14 +76,6 @@ public class ArticleDetailFragment extends Fragment implements
      */
     public ArticleDetailFragment() {
     }
-/*
-    public static Fragment newInstanceSupportFragment(long itemId){
-        Bundle arguments = new Bundle();
-        arguments.putLong(ARG_ITEM_ID, itemId);
-        ArticleDetailFragment fragment = new ArticleDetailFragment();
-        fragment.setArguments(arguments);
-        return fragment;
-    }*/
 
     public static ArticleDetailFragment newInstance(long itemId) {
         Bundle arguments = new Bundle();
@@ -162,6 +154,8 @@ public class ArticleDetailFragment extends Fragment implements
         setHasOptionsMenu(true);
         getActivityCast().setSupportActionBar(mToolbar);
         getActivityCast().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         mToolbar.setNavigationOnClickListener(new View.OnClickListener(){
 
             @Override
