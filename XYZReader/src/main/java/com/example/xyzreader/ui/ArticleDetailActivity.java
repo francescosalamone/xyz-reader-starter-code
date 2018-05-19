@@ -28,6 +28,7 @@ import java.util.List;
 public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final String FIRST_START = "first_start";
     private Cursor mCursor;
     private long mStartId;
     private boolean firstStart = true;
@@ -61,8 +62,15 @@ public class ArticleDetailActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(FIRST_START, firstStart);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
@@ -75,7 +83,11 @@ public class ArticleDetailActivity extends AppCompatActivity
         mPagerAdapter = new MyPagerAdapter(getFragmentManager());
         mPager = (ViewPager) findViewById(R.id.pager);
 
-        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+        if(savedInstanceState != null){
+            firstStart = savedInstanceState.getBoolean(FIRST_START);
+        }
+
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP || !firstStart) {
             getLoaderManager().initLoader(0, null, this);
             mPager.setAdapter(mPagerAdapter);
         }
